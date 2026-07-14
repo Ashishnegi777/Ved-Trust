@@ -33,6 +33,10 @@ function getErrorMessage(error: unknown) {
     return 'This account is signed in but is not listed as a gallery owner yet. Add its user UUID to public.gallery_admins in Supabase.';
   }
 
+  if (message.toLowerCase().includes('exp claim timestamp check failed')) {
+    return 'Your gallery sign-in has expired. Sign out, make sure Windows date and time are set automatically, then sign in again.';
+  }
+
   return message;
 }
 
@@ -274,6 +278,16 @@ export default function AdminGallery() {
 
     setIsSaving(true);
     setMessage('');
+
+    // Renew the browser session before Storage validates the JWT for this upload.
+    const { data: refreshedSession, error: refreshError } = await supabase.auth.refreshSession();
+    if (refreshError || !refreshedSession.session) {
+      setIsSaving(false);
+      setMessage(getErrorMessage(refreshError ?? new Error('Your gallery sign-in has expired. Please sign in again.')));
+      return;
+    }
+    setSession(refreshedSession.session);
+
     const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg';
     const imagePath = `${crypto.randomUUID()}.${extension}`;
     const nextSortOrder = Math.max(-1, ...items.map((item) => item.sortOrder)) + 1;
