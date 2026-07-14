@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import cowImage from '../assets/images/indian_cow.png';
+import cowImage from '../assets/images/ccow.webp';
 import riverImage from '../assets/images/ganga_rever.png';
-import treeImage from '../assets/images/treee.png';
+import treeImage from '../assets/images/uk_tree.webp';
 import womenImage from '../assets/images/wome empowerment.png';
 import eduImage from '../assets/images/edu.png';
 import PaintSmearImage from './PaintSmearImage';

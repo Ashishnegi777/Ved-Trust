@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ArrowDown } from 'lucide-react';
-import himalayanPeaks from '../assets/images/hills.jpg';
+import himalayanPeaks from '../assets/images/hills.webp';
 import HeroShaderTitle from './HeroShaderTitle';
 
 export default function Hero() {

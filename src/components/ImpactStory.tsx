@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import medicalAidImage from '../assets/images/medical aid.png';
+import medicalAidImage from '../assets/images/medical aid2.png';
 
 export default function ImpactStory() {
   const sectionRef = useRef<HTMLDivElement>(null);
