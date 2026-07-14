@@ -261,6 +261,19 @@ export default function AdminGallery() {
     setMessage('');
   };
 
+  const refreshGallerySession = async () => {
+    if (!supabase) return false;
+
+    const { data, error } = await supabase.auth.refreshSession();
+    if (error || !data.session) {
+      setMessage(getErrorMessage(error ?? new Error('Your gallery sign-in has expired. Please sign in again.')));
+      return false;
+    }
+
+    setSession(data.session);
+    return true;
+  };
+
   const uploadImage = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!supabase || !file) return;
@@ -280,13 +293,10 @@ export default function AdminGallery() {
     setMessage('');
 
     // Renew the browser session before Storage validates the JWT for this upload.
-    const { data: refreshedSession, error: refreshError } = await supabase.auth.refreshSession();
-    if (refreshError || !refreshedSession.session) {
+    if (!(await refreshGallerySession())) {
       setIsSaving(false);
-      setMessage(getErrorMessage(refreshError ?? new Error('Your gallery sign-in has expired. Please sign in again.')));
       return;
     }
-    setSession(refreshedSession.session);
 
     const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg';
     const imagePath = `${crypto.randomUUID()}.${extension}`;
@@ -332,6 +342,10 @@ export default function AdminGallery() {
     if (!supabase || !nextTitle) return;
     setIsSaving(true);
     setMessage('');
+    if (!(await refreshGallerySession())) {
+      setIsSaving(false);
+      return;
+    }
 
     const { error } = await supabase
       .from('gallery_items')
@@ -347,6 +361,10 @@ export default function AdminGallery() {
     if (!supabase) return;
     setIsSaving(true);
     setMessage('');
+    if (!(await refreshGallerySession())) {
+      setIsSaving(false);
+      return;
+    }
     const { error } = await supabase
       .from('gallery_items')
       .update({ is_published: !item.isPublished, updated_at: new Date().toISOString() })
@@ -365,6 +383,10 @@ export default function AdminGallery() {
 
     setIsSaving(true);
     setMessage('');
+    if (!(await refreshGallerySession())) {
+      setIsSaving(false);
+      return;
+    }
     const [{ error: firstError }, { error: secondError }] = await Promise.all([
       supabase.from('gallery_items').update({ sort_order: adjacent.sortOrder }).eq('id', item.id),
       supabase.from('gallery_items').update({ sort_order: item.sortOrder }).eq('id', adjacent.id),
@@ -380,16 +402,32 @@ export default function AdminGallery() {
     setIsSaving(true);
     setMessage('');
 
-    const { error: deleteRowError } = await supabase.from('gallery_items').delete().eq('id', item.id);
+    if (!(await refreshGallerySession())) {
+      setIsSaving(false);
+      return;
+    }
+
+    const { data: deletedItems, error: deleteRowError } = await supabase
+      .from('gallery_items')
+      .delete()
+      .eq('id', item.id)
+      .select('id');
     if (deleteRowError) {
       setIsSaving(false);
-      setMessage(deleteRowError.message);
+      setMessage(getErrorMessage(deleteRowError));
+      return;
+    }
+
+    if (!deletedItems?.length) {
+      setIsSaving(false);
+      setMessage('The gallery item could not be deleted. Sign out and sign in again, then confirm this account is listed in public.gallery_admins.');
       return;
     }
 
     const { error: deleteFileError } = await supabase.storage.from('gallery').remove([item.imagePath]);
-    if (deleteFileError) setMessage(`Gallery entry removed, but the file could not be removed: ${deleteFileError.message}`);
-    else await loadItems();
+    await loadItems();
+    if (deleteFileError) setMessage(`Gallery entry was removed, but its stored image file could not be removed: ${getErrorMessage(deleteFileError)}`);
+    else setMessage('Image deleted.');
     setIsSaving(false);
   };
 
