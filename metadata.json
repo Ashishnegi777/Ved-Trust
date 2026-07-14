@@ -1,0 +1,6 @@
+{
+  "name": "Uttarakhand Seva Trust",
+  "description": "An immersive storytelling website for a charitable Trust in Uttarakhand focusing on education, women empowerment, cow shelter, and environmental care.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
