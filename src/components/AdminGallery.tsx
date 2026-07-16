@@ -274,6 +274,23 @@ export default function AdminGallery() {
     return true;
   };
 
+  const prepareGalleryAction = async () => {
+    if (!(await refreshGallerySession()) || !supabase) return false;
+
+    const { data: isAdmin, error } = await supabase.rpc('is_gallery_admin');
+    if (error) {
+      setMessage('Gallery permissions are not configured in this Supabase project. Run supabase/gallery.sql in the project used by production.');
+      return false;
+    }
+
+    if (!isAdmin) {
+      setMessage('This signed-in account is not a gallery owner in the Supabase project used by production. Add its user UUID to public.gallery_admins, then sign in again.');
+      return false;
+    }
+
+    return true;
+  };
+
   const uploadImage = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!supabase || !file) return;
@@ -293,7 +310,7 @@ export default function AdminGallery() {
     setMessage('');
 
     // Renew the browser session before Storage validates the JWT for this upload.
-    if (!(await refreshGallerySession())) {
+    if (!(await prepareGalleryAction())) {
       setIsSaving(false);
       return;
     }
@@ -342,7 +359,7 @@ export default function AdminGallery() {
     if (!supabase || !nextTitle) return;
     setIsSaving(true);
     setMessage('');
-    if (!(await refreshGallerySession())) {
+    if (!(await prepareGalleryAction())) {
       setIsSaving(false);
       return;
     }
@@ -361,7 +378,7 @@ export default function AdminGallery() {
     if (!supabase) return;
     setIsSaving(true);
     setMessage('');
-    if (!(await refreshGallerySession())) {
+    if (!(await prepareGalleryAction())) {
       setIsSaving(false);
       return;
     }
@@ -383,7 +400,7 @@ export default function AdminGallery() {
 
     setIsSaving(true);
     setMessage('');
-    if (!(await refreshGallerySession())) {
+    if (!(await prepareGalleryAction())) {
       setIsSaving(false);
       return;
     }
@@ -402,7 +419,7 @@ export default function AdminGallery() {
     setIsSaving(true);
     setMessage('');
 
-    if (!(await refreshGallerySession())) {
+    if (!(await prepareGalleryAction())) {
       setIsSaving(false);
       return;
     }

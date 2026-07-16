@@ -51,13 +51,6 @@ const defaultGalleryItems: GalleryItem[] = [
     location: 'Clean River',
     widthClass: 'w-[320px] sm:w-[450px] md:w-[560px]',
   },
-  {
-    id: 'community-in-motion',
-    img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800',
-    caption: 'Community in motion',
-    location: 'Nainital Village Hub',
-    widthClass: 'w-[250px] sm:w-[340px] md:w-[420px]',
-  },
 ];
 
 export default function InteractiveGallery() {
