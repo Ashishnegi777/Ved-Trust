@@ -1,8 +1,8 @@
 import { ArrowRight, BrainCircuit, Cpu, Network, Sparkles, WandSparkles } from 'lucide-react';
 
-import genAi from '../assets/images/piano.png';
-import machine from '../assets/images/Cybernetic Fusion Art.png';
-import deep from '../assets/images/Futuristic Humanoid Design.png';
+import genAi from '../assets/images/ml.webp';
+import machine from '../assets/images/deep.webp';
+import deep from '../assets/images/generative ai.webp';
 
 const services = [
   {

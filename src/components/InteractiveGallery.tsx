@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import cowImage from '../assets/images/ccow.webp';
-import medicalAidImage from '../assets/images/medical aid.png';
-import riverImage from '../assets/images/ganga_rever.png';
+import medicalAidImage from '../assets/images/medical_aid.webp';
+import riverImage from '../assets/images/ganga_rever.webp';
 import treeImage from '../assets/images/uk_tree.webp';
-import womenImage from '../assets/images/wome empowerment.png';
+import womenImage from '../assets/images/women_empowerment.webp';
 import { fetchPublishedGalleryItems, type GalleryDisplayItem } from '../lib/gallery';
 
 interface GalleryItem extends GalleryDisplayItem {
