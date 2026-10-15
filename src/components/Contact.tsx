@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, ArrowUp } from 'lucide-react';
+import { Mail, ArrowUp } from 'lucide-react';
 
 export default function Contact() {
   const currentYear = new Date().getFullYear();
@@ -31,10 +31,8 @@ export default function Contact() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
-        
         {/* Main Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 pb-20 border-b border-background-warm/10">
-          
           {/* Left Column: Mission Narrative and Call to Connect */}
           <div className="lg:col-span-7 flex flex-col justify-between">
             <div className="flex flex-col gap-6 max-w-xl">
@@ -47,7 +45,7 @@ export default function Contact() {
               <p className="font-body text-[#6F6A5F] text-base md:text-lg font-light leading-relaxed">
                 To collaborate on CS/IT research, support a community initiative, volunteer, or learn more about Ved Trust, please reach out directly.
               </p>
-              
+
               <div className="mt-4">
                 <a
                   href="mailto:ved.trust@hotmail.com"
@@ -68,13 +66,12 @@ export default function Contact() {
 
           {/* Right Column: Precise Contact details */}
           <div className="lg:col-span-5 flex flex-col gap-10 lg:pl-12">
-            
             <div className="flex flex-col gap-2">
               <h4 className="font-mono text-xs uppercase tracking-wider text-earth font-semibold">
                 General Queries
               </h4>
               <div className="h-[1px] w-full bg-background-warm/10 mb-2" />
-              
+
               <div className="flex flex-col gap-6 mt-2">
                 {/* Email item */}
                 <div className="flex gap-4 items-start group">
@@ -82,38 +79,15 @@ export default function Contact() {
                     <Mail size={18} />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] uppercase tracking-wider font-mono text-[#6F6A5F]">Send an Email</span>
-                    <a href="mailto:ved.trust@hotmail.com" className="text-base font-medium hover:text-earth transition-colors">
+                    <span className="text-[10px] uppercase tracking-wider font-mono text-[#6F6A5F]">
+                      Send an Email
+                    </span>
+                    <a
+                      href="mailto:ved.trust@hotmail.com"
+                      className="text-base font-medium hover:text-earth transition-colors"
+                    >
                       ved.trust@hotmail.com
                     </a>
-                  </div>
-                </div>
-
-                {/* Phone item */}
-                <div className="flex gap-4 items-start group">
-                  <div className="p-3 rounded-full bg-background-warm/5 text-[#C8A46A] group-hover:bg-[#3F5F45] group-hover:text-[#F7F3EA] transition-all duration-300">
-                    <Phone size={18} />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] uppercase tracking-wider font-mono text-[#6F6A5F]">Call or WhatsApp</span>
-                    <a href="tel:+919971997198" className="text-base font-medium hover:text-earth transition-colors">
-                      +91 99719 97198
-                    </a>
-                  </div>
-                </div>
-
-                {/* Location item */}
-                <div className="flex gap-4 items-start group">
-                  <div className="p-3 rounded-full bg-background-warm/5 text-[#C8A46A] group-hover:bg-[#3F5F45] group-hover:text-[#F7F3EA] transition-all duration-300">
-                    <MapPin size={18} />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] uppercase tracking-wider font-mono text-[#6F6A5F]">Find Us At</span>
-                    <address className="text-base font-medium not-italic leading-relaxed">
-                      C/O Geeta Tanda, Kothiyal Road,<br />
-                      Dinkervihar, Vikasnagar,<br />
-                      Dehradun - 248198, Uttarakhand
-                    </address>
                   </div>
                 </div>
               </div>
@@ -124,12 +98,10 @@ export default function Contact() {
                 Support Notice
               </span>
               <p className="font-body text-xs text-[#6F6A5F] leading-relaxed">
-                Ved Trust welcomes research collaborations, institutional partnerships, volunteer support, and community-led initiatives. For donations or project discussions, please connect by email or phone.
+                Ved Transformative Research and Universal Science Technology Foundation welcomes research collaborations, institutional partnerships, volunteer support, and community-led initiatives. For donations or project discussions, please connect by email.
               </p>
             </div>
-
           </div>
-
         </div>
 
         {/* Footer Area */}
@@ -137,7 +109,7 @@ export default function Contact() {
           <div>
             &copy; {currentYear} Ved Trust. Research, service, and community care.
           </div>
-          
+
           <button
             onClick={handleBackToTop}
             className="flex items-center gap-2 group px-4 py-2 rounded-full border border-background-warm/10 hover:border-earth/40 hover:text-earth transition-all cursor-pointer"
@@ -146,7 +118,6 @@ export default function Contact() {
             <ArrowUp size={12} className="group-hover:translate-y-[-2px] transition-transform" />
           </button>
         </div>
-
       </div>
     </section>
   );

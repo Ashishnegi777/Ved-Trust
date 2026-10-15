@@ -128,7 +128,7 @@ export default function About() {
               01 // The Foundation
             </span>
             <h2 className="text-pine-green font-heading text-4xl md:text-5xl tracking-tight">
-              About Ved Trust
+              Ved Transformative Research and Universal Science Technology Foundation
             </h2>
             <ReliefLightLayer
               normalMapSrc={reliefNormalMap}
